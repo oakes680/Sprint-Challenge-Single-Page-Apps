@@ -117,3 +117,7 @@ header h1 {
   color: #333;
 }
 
+select {
+  border-radius: 20px;
+  width: 150px;
+}

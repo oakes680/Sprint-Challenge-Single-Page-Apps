@@ -53,19 +53,13 @@ export default function CharacterList() {
     setDrop(event.target.value)
   }
 
-
-
-
-
-
   return (
-
-
     <section >
 
-      <form className='center'>
+      <form className='center mt-4'> 
+        <span>Enter in Character Name</span>
         <input
-          className='center'
+          className='center ml-2'
           type="text"
           onChange={handleInputChange}
           value={query}
@@ -73,8 +67,8 @@ export default function CharacterList() {
           tabIndex='0'
           placeholder='Search by Name'
         />
-
-        <select name="names" onChange={handleChange}>
+        <span className='ml-4'>Or select a Character</span>
+        <select className='dropdown' className='ml-2' name="names" onChange={handleChange}>
           <option value="Rick">Rick</option>
           <option value="Morty">Morty</option>
           <option value="Summer">Summer</option>
