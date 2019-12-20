@@ -8,6 +8,17 @@ import {
   CardTitle, CardSubtitle
 } from 'reactstrap';
 import { Container, Entry} from './components/styles'
+import { usePromiseTracker } from "react-promise-tracker";
+
+
+
+const LoadingIndicator = props => {
+  const { promiseInProgress } = usePromiseTracker();
+  return (
+    promiseInProgress &&
+    <h1>Hey some async call in progress ! </h1>
+  );
+}
 
 export default function App() {
   return (
@@ -18,7 +29,9 @@ export default function App() {
       <WelcomePage/>
     </Route>
     <Route exact path = '/characters'>  
+    <LoadingIndicator/>
         <CharacterList/>
+        
       </Route>
     </main>
   );

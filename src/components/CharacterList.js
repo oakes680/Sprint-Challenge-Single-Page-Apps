@@ -5,14 +5,33 @@ import {
   Card, CardBody,
   CardTitle, CardSubtitle
 } from 'reactstrap';
-import { Container, Entry } from './styles'
+import { Container, Entry } from './styles';
+import { trackPromise } from 'react-promise-tracker';
+import delayAdapterEnhancer from 'axios-delay';
+
+const api = axios.create({
+  adapter: delayAdapterEnhancer(axios.defaults.adapter)
+});
+ 
+
+
+const delayy =
+    milliseconds =>
+      new Promise(resolve =>
+        setTimeout(resolve, milliseconds));
+
+
+
 
 export default function CharacterList() {
   // TODO: Add useState to track data from useEffect
   const [data, setData] = useState([]);
   const [query, setQuery] = useState('');
 
+
+  
   useEffect(() => {
+    trackPromise(
     axios
       .get('https://rickandmortyapi.com/api/character')
       .then(response => {
@@ -22,7 +41,7 @@ export default function CharacterList() {
             character.name.toLowerCase().includes(query.toLowerCase())
         );
         setData(characters)
-      })
+      }))
       .catch(error => {
         console.log('error', error)
       })
@@ -35,8 +54,10 @@ export default function CharacterList() {
 
   const [drop, setDrop] = useState('');
 
+ 
 
   useEffect(() => {
+    trackPromise(
     axios
       .get(`https://rickandmortyapi.com/api/character/?name=${drop}`)
       .then(response => {
@@ -46,7 +67,7 @@ export default function CharacterList() {
       })
       .catch(error => {
         console.log('error', error)
-      })
+      }))
   }, [drop]);
 
   const handleChange = event => {
